@@ -1,0 +1,77 @@
+    import java.util.HashSet;
+    import java.util.Set;
+
+    public class RandomCards {
+
+        public static void main(String[] args){
+
+            String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+            String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10","Jack", "Queen", "King", "Ace"};
+
+
+            Set<String> setR = printRandomCards(suits, ranks);
+            Set<String> allSet = getAllCombinations(suits, ranks);
+            printRest(setR, allSet);
+
+        }
+
+        public static Set<String> getAllCombinations(String[] suits, String[] ranks){
+
+            Set<String> allset= new HashSet<>();
+            for(int i=0; i < ranks.length; i++){
+                for(int j=0; j< suits.length; j++){
+                    allset.add(ranks[i]+"-"+suits[j]);
+                }
+            }
+
+            return allset;
+        }
+
+        public static void printRest(Set<String> setR, Set<String> setAll){
+
+            for(String str: setR){
+                if(setAll.remove(str));
+            }
+
+            System.out.println("-------Remaining Cards---------");
+            for(String str: setAll){
+                System.out.println(str);
+            }
+        }
+
+        public static int getRandomNumber(int maxValue){
+            int num1 = -1;
+            int num2 = -1;
+            int num = num1 + num2;
+            while(num <=0 || num > maxValue) {
+                num1 = (int) (Math.random() * 10);
+                num2 = (int) (Math.random() * 10);
+                num = num1 + num2;
+            }
+
+            return num;
+        }
+
+        public static Set<String> printRandomCards(String[] suits, String[] ranks){
+
+            Set<String> set = new HashSet<>();
+
+            while(true){
+                String randomSuit = suits[getRandomNumber(3)];
+                String randomRank = ranks[getRandomNumber(12)];
+
+                String card = randomRank+"-"+randomSuit;
+                set.add(card);
+
+                if(set.size()==13)
+                    break;
+            }
+
+            for(String str : set){
+                System.out.println(str);
+            }
+            return set;
+        }
+    }
+
+	
